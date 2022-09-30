@@ -3,21 +3,19 @@
     <b-navbar>
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          <img
-            src="../assets/Logo.svg"
-            alt="Lightweight UI components for Vue.js based on Bulma"
-          />
+          <img src="../assets/Logo.svg" alt="Kendamais logo" />
         </b-navbar-item>
       </template>
       <template #start>
-        <b-navbar-item>
-          <b-input
-            expanded
-            placeholder="Search..."
-            icon="search"
-            icon-clickable
-          ></b-input>
-        </b-navbar-item>
+        <!-- <b-navbar-item> -->
+        <b-input
+          class="search-input"
+          expanded
+          placeholder="Search..."
+          icon="search"
+          icon-clickable
+        ></b-input>
+        <!-- </b-navbar-item> -->
         <!-- <b-navbar-item href="#"> Home </b-navbar-item>
         <b-navbar-item href="#"> Documentation</b-navbar-item>
         <b-navbar-dropdown label="Info">
@@ -29,10 +27,8 @@
       <template #end>
         <b-navbar-item tag="div">
           <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light"> Log in </a>
+            <a class="button"> Criar Conta </a>
+            <a class="button is-light">Entrar </a>
           </div>
         </b-navbar-item>
       </template>
@@ -50,25 +46,36 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
 .navbar {
   background-color: #ffb449 !important;
 }
 .navbar-start {
-  width: 100% !important;
+  width: 80% !important;
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+  padding: 0 20px;
+}
+.search-input {
+  width: 100%;
+  max-width: 1000px;
+}
+.navbar-item {
+  padding: 0;
+}
+.button {
+  border: none;
+  background: transparent;
+}
+@media screen and (max-width: 1024px) {
+  .navbar-menu {
+    background-color: transparent !important;
+  }
+}
+</style>
+<style scoped>
+.buttons {
+  border: none;
 }
 </style>
