@@ -33,13 +33,13 @@
   </div>
 </template>
 <script>
-import CopyrightsAll from "@/components/CopyrightsAll.vue";
+import CopyrightsAll from "@/components/CopyrightsAll.vue"
 export default {
   name: "LoginView",
   components: {
-    CopyrightsAll,
-  },
-};
+    CopyrightsAll
+  }
+}
 </script>
 <style scoped>
 .about {

@@ -11,22 +11,22 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import HelloWorld1 from "@/components/HelloWorld1.vue";
-import Vue from "vue";
-import Buefy from "buefy";
-import "buefy/dist/buefy.css";
-import CarrousselHome from "@/components/CarrousselHome.vue";
-import CopyrightsAll from "../components/CopyrightsAll.vue";
+import HelloWorld1 from "@/components/HelloWorld1.vue"
+import Vue from "vue"
+import Buefy from "buefy"
+import "buefy/dist/buefy.css"
+import CarrousselHome from "@/components/CarrousselHome.vue"
+import CopyrightsAll from "../components/CopyrightsAll.vue"
 
-Vue.use(Buefy);
+Vue.use(Buefy)
 export default {
   name: "HomeView",
   components: {
     HelloWorld1,
     CarrousselHome,
-    CopyrightsAll,
-  },
-};
+    CopyrightsAll
+  }
+}
 </script>
 <style>
 .home {
