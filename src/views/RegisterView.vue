@@ -4,38 +4,56 @@
     <section class="second-container">
       <div class="card-login">
         <div class="header">
-          <div class="logo" tag="router-link" :to="{ path: '/' }">
-            <img
-              src="../assets/Logo.svg"
-              alt="Lightweight UI components for Vue.js based on Bulma"
-            />
+          <div class="logo">
+            <router-link to="/">
+              <img
+                src="../assets/Logo.svg"
+                alt="Logo Kendamais"
+              />
+            </router-link>
           </div>
         </div>
         <form action="login-form">
           <div class="input-row">
-            <b-field
-            >
-              <b-input placeholder="Nome"  type="text" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="formData.name"
+                placeholder="Nome"
+                type="text"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="E-mail" type="email" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="formData.email"
+                placeholder="E-mail"
+                type="email"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="CPF ou CNPJ" type="cpf" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="formData.cpf"
+                placeholder="CPF ou CNPJ"
+                type="cpf"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="Telefone" type="email" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="formData.phone"
+                placeholder="Telefone"
+                type="email"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="Senha" type="password" password-reveal ></b-input>
-            </b-field>
-            <b-field
-            >
-              <b-input placeholder="Confirme sua Senha" type="password" password-reveal ></b-input>
+            <b-field>
+              <b-input
+                v-model="formData.password"
+                placeholder="Senha"
+                type="password"
+                password-reveal
+              ></b-input>
             </b-field>
           </div>
           <div class="buttons-row">
@@ -50,13 +68,24 @@
   </div>
 </template>
 <script>
-import CopyrightsAll from "@/components/CopyrightsAll.vue"
+import CopyrightsAll from "@/components/CopyrightsAll.vue";
 export default {
   name: "RegisterView",
   components: {
     CopyrightsAll
+  },
+  data () {
+    return {
+      formData: {
+        name: "",
+        email: "",
+        cpf: "",
+        phone: "",
+        password: ""
+      }
+    }
   }
-}
+};
 </script>
 <style scoped>
 .about {

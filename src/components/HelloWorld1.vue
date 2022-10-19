@@ -27,8 +27,12 @@
       <template #end>
         <b-navbar-item tag="div">
           <div class="buttons">
+            <router-link to="/register">
             <a class="button"> Criar Conta </a>
-            <a class="button is-light">Entrar </a>
+          </router-link>
+          <router-link to="/login">
+            <a class="button is-light">Entrar</a>
+          </router-link>
           </div>
         </b-navbar-item>
       </template>

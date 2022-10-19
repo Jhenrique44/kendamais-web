@@ -4,11 +4,13 @@
     <section class="second-container">
       <div class="card-login">
         <div class="header">
-          <div class="logo" tag="router-link" :to="{ path: '/' }">
+          <div class="logo">
+            <router-link to="/">
             <img
               src="../assets/Logo.svg"
               alt="Lightweight UI components for Vue.js based on Bulma"
             />
+          </router-link>
           </div>
         </div>
         <form action="login-form">
@@ -21,7 +23,9 @@
             </b-field>
           </div>
           <div class="buttons-row">
-            <b-button class="create-btn">Criar Conta</b-button>
+            <router-link to="/register">
+              <b-button class="create-btn">Criar Conta</b-button>
+            </router-link>
             <b-button class="continue-btn">Continuar</b-button>
           </div>
         </form>
@@ -33,13 +37,13 @@
   </div>
 </template>
 <script>
-import CopyrightsAll from "@/components/CopyrightsAll.vue"
+import CopyrightsAll from "@/components/CopyrightsAll.vue";
 export default {
   name: "LoginView",
   components: {
     CopyrightsAll
   }
-}
+};
 </script>
 <style scoped>
 .about {
