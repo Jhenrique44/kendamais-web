@@ -8,7 +8,7 @@
             <router-link to="/">
               <img
                 src="../assets/Logo.svg"
-                alt="Logo Kendamais"
+                alt="Lightweight UI components for Vue.js based on Bulma"
               />
             </router-link>
           </div>
@@ -43,7 +43,7 @@
               <b-input
                 v-model="formData.phone"
                 placeholder="Telefone"
-                type="email"
+                type="phone"
                 maxlength="30"
               ></b-input>
             </b-field>
@@ -57,7 +57,9 @@
             </b-field>
           </div>
           <div class="buttons-row">
-            <b-button class="continue-btn">Continuar</b-button>
+            <b-button class="continue-btn" @click="insertUser()"
+              >Continuar</b-button
+            >
           </div>
         </form>
       </div>
@@ -69,6 +71,7 @@
 </template>
 <script>
 import CopyrightsAll from "@/components/CopyrightsAll.vue";
+import auth from "../consumers/auth";
 export default {
   name: "RegisterView",
   components: {
@@ -80,10 +83,24 @@ export default {
         name: "",
         email: "",
         cpf: "",
+        cnpj: "",
         phone: "",
         password: ""
       }
     }
+  },
+  methods: {
+    insertUser () {
+      const vm = this;
+      if (this.formData.cpf.length > 11) {
+        vm.formData.cnpj = vm.formData.cpf;
+        vm.formData.cpf = "";
+      }
+      console.log(process.env.VUE_APP_SERVER_BASEURL);
+      auth.signup(this.formData);
+      localStorage.setItem("tokenAuth", "gksujdhfgiuadfh");
+    }
+
   }
 };
 </script>

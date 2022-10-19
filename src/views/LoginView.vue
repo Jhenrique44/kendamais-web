@@ -19,14 +19,14 @@
               label="Informe seu e-mail para continuar"
               label-position="left"
             >
-              <b-input type="email" maxlength="30"></b-input>
+              <b-input type="email" maxlength="30" v-model="user.email"></b-input>
             </b-field>
           </div>
           <div class="buttons-row">
             <router-link to="/register">
               <b-button class="create-btn">Criar Conta</b-button>
             </router-link>
-            <b-button class="continue-btn">Continuar</b-button>
+            <b-button class="continue-btn" @click="logar()">Continuar</b-button>
           </div>
         </form>
       </div>
@@ -42,6 +42,19 @@ export default {
   name: "LoginView",
   components: {
     CopyrightsAll
+  },
+  data () {
+    return {
+      user: {
+        email: ""
+      }
+    }
+  },
+  methods: {
+    logar () {
+      this.$store.dispatch("getUser", this.user.email);
+      this.$router.push({ name: "user" })
+    }
   }
 };
 </script>
