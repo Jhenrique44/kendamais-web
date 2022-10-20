@@ -72,7 +72,7 @@
 <script>
 import { mapFields } from "../helpers";
 import CopyrightsAll from "@/components/CopyrightsAll.vue";
-import auth from "../consumers/auth";
+// import auth from "../consumers/auth";
 export default {
   name: "RegisterView",
   components: {
@@ -100,26 +100,17 @@ export default {
       ],
       base: "user",
       mutation: "UPDATE_USER"
-    }),
-    mostrarDadosLogin () {
-      return !this.$store.state.login || this.$route.name === "user-edit";
-    }
+    })
+    // mostrarDadosLogin () {
+    //   return !this.$store.state.login || this.$route.name === "user-edit";
+    // }
   },
   methods: {
-    insertUser () {
-      // const vm = this;
-      // if (this.formData.cpf.length > 11) {
-      //   vm.formData.cnpj = vm.formData.cpf;
-      //   vm.formData.cpf = "";
-      // }
-      console.log(this.formData)
-      auth.signup(this.formData);
-      localStorage.setItem("tokenAuth", "gksujdhfgiuadfh");
-    },
     async createUser () {
       try {
-        await this.$store.dispatch("createUser", this.formData);
-        // await this.$store.dispatch("loginUser", this.$store.state.user);
+        const data = await this.$store.dispatch("createUser", this.$store.state.user);
+        console.log({ data });
+        await this.$store.dispatch("loginUser", this.$store.state.user);
         // await this.$store.dispatch("getUser");
         this.$router.push({ name: "user" });
       } catch (error) {

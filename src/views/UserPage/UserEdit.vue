@@ -4,7 +4,7 @@
       <div class="input-row">
         <b-field>
           <b-input
-            v-model="formData.name"
+            v-model="name"
             placeholder="Nome"
             type="text"
             maxlength="30"
@@ -12,7 +12,7 @@
         </b-field>
         <b-field>
           <b-input
-            v-model="formData.email"
+            v-model="email"
             placeholder="E-mail"
             type="email"
             maxlength="30"
@@ -20,7 +20,7 @@
         </b-field>
         <b-field>
           <b-input
-            v-model="formData.cpf"
+            v-model="cpf"
             placeholder="CPF ou CNPJ"
             type="cpf"
             maxlength="30"
@@ -28,7 +28,7 @@
         </b-field>
         <b-field>
           <b-input
-            v-model="formData.phone"
+            v-model="cellphone"
             placeholder="Telefone"
             type="phone"
             maxlength="30"
@@ -36,7 +36,7 @@
         </b-field>
         <b-field>
           <b-input
-            v-model="formData.password"
+            v-model="password"
             placeholder="Senha"
             type="password"
             password-reveal
@@ -44,7 +44,7 @@
         </b-field>
       </div>
       <div class="buttons-row">
-        <b-button class="continue-btn" @click.prevent="creat()"
+        <b-button class="continue-btn" @click.prevent="updateUserLogged()"
           >Atualizar</b-button
         >
       </div>
@@ -52,17 +52,43 @@
   </section>
 </template>
 <script>
+import { mapFields } from "../../helpers";
+import userApi from "@/consumers/userApi";
 export default {
   name: "UserEdit",
   data () {
     return {
-      formData: {
+      user: {
         name: "",
         password: "",
         email: "",
         cpf: "",
         cellphone: ""
       }
+    }
+  },
+  computed: {
+    ...mapFields({
+      fields: ["name", "email", "password", "cpf", "cellphone"],
+      base: "user",
+      mutation: "UPDATE_USER"
+    }),
+    showDataLogin () {
+      return !this.$store.state.login || !this.$route.name === "user-edit"
+    }
+  },
+  methods: {
+    updateUserLogged () {
+      console.log({ a: this.$store.state.user })
+      userApi
+        .updateUser(this.$store.state.user)
+        .then(() => {
+          // this.$store.dispatch("getUser");
+          this.$router.push({ name: "user" });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     }
   }
 };

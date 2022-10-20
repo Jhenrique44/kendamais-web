@@ -1,4 +1,5 @@
 import auth from "@/consumers/auth"
+import userApi from "@/consumers/userApi"
 import Vue from "vue"
 import Vuex from "vuex"
 
@@ -28,23 +29,25 @@ export default new Vuex.Store({
   },
   actions: {
     getUser (context) {
-      return auth.get(context).then(res => {
+      console.log(context)
+      return userApi.getUser(context).then(res => {
         context.commit("UPDATE_USER", res.data);
         context.commit("UPDATE_LOGIN", true);
       })
     },
     createUser (context, payload) {
       console.log(payload, context);
-      context.commit("UPDATE_USER", { id: payload.email });
       return auth.signup(payload)
     },
     loginUser (context, payload) {
+      console.log(payload);
       return auth.signin({
-        name: payload.name,
+        email: payload.email,
         password: payload.password
       }).then(res => {
-        window.localStorage.token = `Bearer ${res.data.token}`
-        console.log(res)
+        context.commit("UPDATE_USER", res);
+        // window.localStorage.token = `Bearer ${res.data.token}`
+        console.log({ res })
       })
     },
     logOut (context) {
@@ -53,7 +56,7 @@ export default new Vuex.Store({
         name: "",
         email: "",
         cpf: "",
-        phone: "",
+        cellphone: "",
         password: ""
       });
       window.localStorage.removeItem("token");
