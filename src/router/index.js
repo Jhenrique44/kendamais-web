@@ -30,7 +30,14 @@ const routes = [
   {
     path: "/user",
     name: "user",
-    component: () => import("../views/UserView.vue")
+    component: () => import("../views//UserPage/UserView.vue"),
+    children: [
+      {
+        path: "edit",
+        name: "user-edit",
+        component: () => import("../views/UserPage/UserEdit")
+      }
+    ]
   }
 ];
 const router = new VueRouter({

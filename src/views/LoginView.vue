@@ -19,9 +19,14 @@
               label="Informe seu e-mail para continuar"
               label-position="left"
             >
-              <b-input type="email" maxlength="30" v-model="user.email"></b-input>
+              <b-input type="email" maxlength="30" v-model="user.email" placeholder="123@123.com"></b-input>
             </b-field>
           </div>
+          <b-field
+              label="Password"
+            >
+              <b-input type="password" maxlength="30" v-model="user.password" password-reveal></b-input>
+            </b-field>
           <div class="buttons-row">
             <router-link to="/register">
               <b-button class="create-btn">Criar Conta</b-button>
@@ -46,13 +51,15 @@ export default {
   data () {
     return {
       user: {
-        email: ""
+        email: "",
+        password: ""
       }
     }
   },
   methods: {
-    logar () {
-      this.$store.dispatch("getUser", this.user.email);
+    async logar () {
+      await this.$store.dispatch("loginUser", this.user);
+      this.$store.dispatch("getUser", this.user);
       this.$router.push({ name: "user" })
     }
   }
@@ -60,7 +67,7 @@ export default {
 </script>
 <style scoped>
 .about {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
 }
 .first-container {
   height: 35vh;

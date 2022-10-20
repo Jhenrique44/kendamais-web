@@ -5,14 +5,16 @@ import Vuex from "vuex"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  strict: true,
   state: {
     login: false,
     user: {
       id: "",
       name: "",
       email: "",
+      password: "",
       cpf: "",
-      phone: ""
+      cellphone: ""
     }
   },
   getters: {},
@@ -21,15 +23,40 @@ export default new Vuex.Store({
       state.login = payload
     },
     UPDATE_USER (state, payload) {
-      state.user = payload
+      state.user = Object.assign(state.user, payload)
     }
   },
   actions: {
-    getUser (context, payload) {
-      auth.getUser(`/user/login/${payload}`).then(res => {
+    getUser (context) {
+      return auth.get(context).then(res => {
         context.commit("UPDATE_USER", res.data);
         context.commit("UPDATE_LOGIN", true);
       })
+    },
+    createUser (context, payload) {
+      console.log(payload, context);
+      context.commit("UPDATE_USER", { id: payload.email });
+      return auth.signup(payload)
+    },
+    loginUser (context, payload) {
+      return auth.signin({
+        name: payload.username,
+        password: payload.password
+      }).then(res => {
+        window.localStorage.token = `Bearer ${res.data.token}`
+        console.log(res)
+      })
+    },
+    logOut (context) {
+      context.commit("UPDATE_USER", {
+        id: "",
+        name: "",
+        email: "",
+        cpf: "",
+        phone: ""
+      });
+      window.localStorage.removeItem("token");
+      context.commit("UPDATE_LOGIN", false);
     }
   },
   modules: {}

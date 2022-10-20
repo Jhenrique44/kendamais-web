@@ -2,7 +2,7 @@ import api from "../apis/api"
 
 async function signup ({ email, password, name, cpf, cnpj, cellphone }) {
   try {
-    const response = await api.post("/user", {
+    const response = await api.post("/user/", {
       email, password, name, cpf, cnpj, cellphone
     })
 

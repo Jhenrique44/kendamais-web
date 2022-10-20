@@ -65,6 +65,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.hello {
+  height: 52px;
+}
 .navbar {
   background-color: #ffb449 !important;
 }

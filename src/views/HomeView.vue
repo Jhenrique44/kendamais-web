@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <NavbarMain />
+    <!-- <NavbarMain /> -->
     <CarrousselHome />
     <footer>
       <CopyrightsAll />
@@ -11,7 +11,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import NavbarMain from "@/components/NavbarMain.vue"
+// import NavbarMain from "@/components/NavbarMain.vue"
 import Vue from "vue"
 import Buefy from "buefy"
 import "buefy/dist/buefy.css"
@@ -22,7 +22,7 @@ Vue.use(Buefy)
 export default {
   name: "HomeView",
   components: {
-    NavbarMain,
+    // NavbarMain,
     CarrousselHome,
     CopyrightsAll
   }
@@ -30,6 +30,6 @@ export default {
 </script>
 <style>
 .home {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px) ;
 }
 </style>

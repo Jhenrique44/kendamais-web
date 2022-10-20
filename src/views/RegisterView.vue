@@ -41,7 +41,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="formData.phone"
+                v-model="formData.cellphone"
                 placeholder="Telefone"
                 type="phone"
                 maxlength="30"
@@ -57,7 +57,7 @@
             </b-field>
           </div>
           <div class="buttons-row">
-            <b-button class="continue-btn" @click="insertUser()"
+            <b-button class="continue-btn" @click="createUser()"
               >Continuar</b-button
             >
           </div>
@@ -81,32 +81,40 @@ export default {
     return {
       formData: {
         name: "",
+        password: "",
         email: "",
         cpf: "",
-        cnpj: "",
-        phone: "",
-        password: ""
+        cellphone: ""
       }
     }
   },
   methods: {
     insertUser () {
-      const vm = this;
-      if (this.formData.cpf.length > 11) {
-        vm.formData.cnpj = vm.formData.cpf;
-        vm.formData.cpf = "";
-      }
-      console.log(process.env.VUE_APP_SERVER_BASEURL);
+      // const vm = this;
+      // if (this.formData.cpf.length > 11) {
+      //   vm.formData.cnpj = vm.formData.cpf;
+      //   vm.formData.cpf = "";
+      // }
+      console.log(this.formData)
       auth.signup(this.formData);
       localStorage.setItem("tokenAuth", "gksujdhfgiuadfh");
+    },
+    async createUser () {
+      try {
+        await this.$store.dispatch("createUser", this.formData);
+        // await this.$store.dispatch("loginUser", this.$store.state.user);
+        // await this.$store.dispatch("getUser");
+        this.$router.push({ name: "user" });
+      } catch (error) {
+        throw new Error(error.message)
+      }
     }
-
   }
 };
 </script>
 <style scoped>
 .about {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
 }
 .first-container {
   height: 35vh;
