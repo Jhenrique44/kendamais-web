@@ -1,63 +1,71 @@
 <template>
   <section class="user-container">
     <form action="login-form">
-          <div class="input-row">
-            <b-field>
-              <b-input
-                v-model="formData.name"
-                placeholder="Nome"
-                type="text"
-                maxlength="30"
-              ></b-input>
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="formData.email"
-                placeholder="E-mail"
-                type="email"
-                maxlength="30"
-              ></b-input>
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="formData.cpf"
-                placeholder="CPF ou CNPJ"
-                type="cpf"
-                maxlength="30"
-              ></b-input>
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="formData.phone"
-                placeholder="Telefone"
-                type="phone"
-                maxlength="30"
-              ></b-input>
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="formData.password"
-                placeholder="Senha"
-                type="password"
-                password-reveal
-              ></b-input>
-            </b-field>
-          </div>
-          <div class="buttons-row">
-            <b-button class="continue-btn" @click.prevent="creat()"
-              >Atualizar</b-button
-            >
-          </div>
-        </form>
+      <div class="input-row">
+        <b-field>
+          <b-input
+            v-model="formData.name"
+            placeholder="Nome"
+            type="text"
+            maxlength="30"
+          ></b-input>
+        </b-field>
+        <b-field>
+          <b-input
+            v-model="formData.email"
+            placeholder="E-mail"
+            type="email"
+            maxlength="30"
+          ></b-input>
+        </b-field>
+        <b-field>
+          <b-input
+            v-model="formData.cpf"
+            placeholder="CPF ou CNPJ"
+            type="cpf"
+            maxlength="30"
+          ></b-input>
+        </b-field>
+        <b-field>
+          <b-input
+            v-model="formData.phone"
+            placeholder="Telefone"
+            type="phone"
+            maxlength="30"
+          ></b-input>
+        </b-field>
+        <b-field>
+          <b-input
+            v-model="formData.password"
+            placeholder="Senha"
+            type="password"
+            password-reveal
+          ></b-input>
+        </b-field>
+      </div>
+      <div class="buttons-row">
+        <b-button class="continue-btn" @click.prevent="creat()"
+          >Atualizar</b-button
+        >
+      </div>
+    </form>
   </section>
 </template>
 <script>
 export default {
   name: "UserEdit",
   data () {
-    return {};
+    return {
+      formData: {
+        name: "",
+        password: "",
+        email: "",
+        cpf: "",
+        cellphone: ""
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>

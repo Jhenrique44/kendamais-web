@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
     loginUser (context, payload) {
       return auth.signin({
-        name: payload.username,
+        name: payload.name,
         password: payload.password
       }).then(res => {
         window.localStorage.token = `Bearer ${res.data.token}`
@@ -53,7 +53,8 @@ export default new Vuex.Store({
         name: "",
         email: "",
         cpf: "",
-        phone: ""
+        phone: "",
+        password: ""
       });
       window.localStorage.removeItem("token");
       context.commit("UPDATE_LOGIN", false);
