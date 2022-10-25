@@ -15,10 +15,10 @@ export default {
     NavbarMain
   },
   created () {
-    console.log(window.localStorage.token)
-    if (window.localStorage.token) {
-      this.$store.dispatch("getUser")
-    }
+    // console.log(window.localStorage.token)
+    // if (window.localStorage.token) {
+    // this.$store.dispatch("getUser")
+    // }
   }
 }
 </script>

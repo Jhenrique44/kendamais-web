@@ -59,7 +59,7 @@ export default {
   methods: {
     async logar () {
       await this.$store.dispatch("loginUser", this.user);
-      this.$store.dispatch("getUser", this.user);
+      // this.$store.dispatch("getUser", this.user);
       this.$router.push({ name: "user" })
     }
   }
