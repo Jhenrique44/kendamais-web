@@ -46,11 +46,8 @@
 <script>
 export default {
   name: "NavbarMain",
-  props: {
-    msg: String
-  },
   computed: {
-    user () {
+    nome () {
       console.log(this.$store.state.user.name);
       return this.$store.state.user.name.replace(/ .*/, "")
     }

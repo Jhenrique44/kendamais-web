@@ -17,7 +17,7 @@
           <div class="input-row">
             <b-field>
               <b-input
-                v-model="formData.name"
+                v-model="name"
                 placeholder="Nome"
                 type="text"
                 maxlength="30"
@@ -25,7 +25,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="formData.email"
+                v-model="email"
                 placeholder="E-mail"
                 type="email"
                 maxlength="30"
@@ -33,7 +33,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="formData.cpf"
+                v-model="cpf"
                 placeholder="CPF ou CNPJ"
                 type="cpf"
                 maxlength="30"
@@ -41,7 +41,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="formData.cellphone"
+                v-model="cellphone"
                 placeholder="Telefone"
                 type="phone"
                 maxlength="30"
@@ -49,7 +49,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="formData.password"
+                v-model="password"
                 placeholder="Senha"
                 type="password"
                 password-reveal
@@ -70,8 +70,9 @@
   </div>
 </template>
 <script>
+import { mapFields } from "../helpers";
 import CopyrightsAll from "@/components/CopyrightsAll.vue";
-import auth from "../consumers/auth";
+// import auth from "../consumers/auth";
 export default {
   name: "RegisterView",
   components: {
@@ -88,21 +89,28 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapFields({
+      fields: [
+        "name",
+        "email",
+        "password",
+        "cpf",
+        "cellphone"
+      ],
+      base: "user",
+      mutation: "UPDATE_USER"
+    })
+    // mostrarDadosLogin () {
+    //   return !this.$store.state.login || this.$route.name === "user-edit";
+    // }
+  },
   methods: {
-    insertUser () {
-      // const vm = this;
-      // if (this.formData.cpf.length > 11) {
-      //   vm.formData.cnpj = vm.formData.cpf;
-      //   vm.formData.cpf = "";
-      // }
-      console.log(this.formData)
-      auth.signup(this.formData);
-      localStorage.setItem("tokenAuth", "gksujdhfgiuadfh");
-    },
     async createUser () {
       try {
-        await this.$store.dispatch("createUser", this.formData);
-        // await this.$store.dispatch("loginUser", this.$store.state.user);
+        const data = await this.$store.dispatch("createUser", this.$store.state.user);
+        console.log({ data });
+        await this.$store.dispatch("loginUser", this.$store.state.user);
         // await this.$store.dispatch("getUser");
         this.$router.push({ name: "user" });
       } catch (error) {
