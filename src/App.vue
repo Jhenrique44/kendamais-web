@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <NavbarMain />
     <!-- <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,7 +8,20 @@
     <router-view />
   </div>
 </template>
-
+<script>
+import NavbarMain from "./components/NavbarMain.vue"
+export default {
+  components: {
+    NavbarMain
+  },
+  created () {
+    // console.log(window.localStorage.token)
+    // if (window.localStorage.token) {
+    // this.$store.dispatch("getUser")
+    // }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Inter, Helvetica, Arial, sans-serif;
@@ -17,16 +31,4 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

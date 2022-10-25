@@ -24,11 +24,18 @@
         </b-navbar-dropdown> -->
       </template>
 
-      <template #end>
+      <template v-if="userLogged == false" #end>
         <b-navbar-item tag="div">
-          <div class="buttons">
-            <a class="button"> Criar Conta </a>
-            <a class="button is-light">Entrar </a>
+          <router-link v-if="$store.state.login" to="/user">
+            {{ name }}
+          </router-link>
+          <div v-else class="buttons">
+            <router-link to="/register">
+              <a class="button"> Criar Conta </a>
+            </router-link>
+            <router-link to="/login">
+              <a class="button is-light">Entrar</a>
+            </router-link>
           </div>
         </b-navbar-item>
       </template>
@@ -38,15 +45,26 @@
 
 <script>
 export default {
-  name: "HelloWorld1",
-  props: {
-    msg: String
+  name: "NavbarMain",
+  computed: {
+    nome () {
+      console.log(this.$store.state.user.name);
+      return this.$store.state.user.name.replace(/ .*/, "")
+    }
+  },
+  data () {
+    return {
+      userLogged: false
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.hello {
+  height: 52px;
+}
 .navbar {
   background-color: #ffb449 !important;
 }

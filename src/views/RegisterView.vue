@@ -4,42 +4,62 @@
     <section class="second-container">
       <div class="card-login">
         <div class="header">
-          <div class="logo" tag="router-link" :to="{ path: '/' }">
-            <img
-              src="../assets/Logo.svg"
-              alt="Lightweight UI components for Vue.js based on Bulma"
-            />
+          <div class="logo">
+            <router-link to="/">
+              <img
+                src="../assets/Logo.svg"
+                alt="Lightweight UI components for Vue.js based on Bulma"
+              />
+            </router-link>
           </div>
         </div>
         <form action="login-form">
           <div class="input-row">
-            <b-field
-            >
-              <b-input placeholder="Nome"  type="text" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="name"
+                placeholder="Nome"
+                type="text"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="E-mail" type="email" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="email"
+                placeholder="E-mail"
+                type="email"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="CPF ou CNPJ" type="cpf" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="cpf"
+                placeholder="CPF ou CNPJ"
+                type="cpf"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="Telefone" type="email" maxlength="30"></b-input>
+            <b-field>
+              <b-input
+                v-model="cellphone"
+                placeholder="Telefone"
+                type="phone"
+                maxlength="30"
+              ></b-input>
             </b-field>
-            <b-field
-            >
-              <b-input placeholder="Senha" type="password" password-reveal ></b-input>
-            </b-field>
-            <b-field
-            >
-              <b-input placeholder="Confirme sua Senha" type="password" password-reveal ></b-input>
+            <b-field>
+              <b-input
+                v-model="password"
+                placeholder="Senha"
+                type="password"
+                password-reveal
+              ></b-input>
             </b-field>
           </div>
           <div class="buttons-row">
-            <b-button class="continue-btn">Continuar</b-button>
+            <b-button class="continue-btn" @click="createUser()"
+              >Continuar</b-button
+            >
           </div>
         </form>
       </div>
@@ -50,17 +70,59 @@
   </div>
 </template>
 <script>
-import CopyrightsAll from "@/components/CopyrightsAll.vue"
+import { mapFields } from "../helpers";
+import CopyrightsAll from "@/components/CopyrightsAll.vue";
+// import auth from "../consumers/auth";
 export default {
   name: "RegisterView",
   components: {
     CopyrightsAll
+  },
+  data () {
+    return {
+      formData: {
+        name: "",
+        password: "",
+        email: "",
+        cpf: "",
+        cellphone: ""
+      }
+    }
+  },
+  computed: {
+    ...mapFields({
+      fields: [
+        "name",
+        "email",
+        "password",
+        "cpf",
+        "cellphone"
+      ],
+      base: "user",
+      mutation: "UPDATE_USER"
+    })
+    // mostrarDadosLogin () {
+    //   return !this.$store.state.login || this.$route.name === "user-edit";
+    // }
+  },
+  methods: {
+    async createUser () {
+      try {
+        const data = await this.$store.dispatch("createUser", this.$store.state.user);
+        console.log({ data });
+        await this.$store.dispatch("loginUser", this.$store.state.user);
+        // await this.$store.dispatch("getUser");
+        this.$router.push({ name: "user" });
+      } catch (error) {
+        throw new Error(error.message)
+      }
+    }
   }
-}
+};
 </script>
 <style scoped>
 .about {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
 }
 .first-container {
   height: 35vh;

@@ -4,11 +4,13 @@
     <section class="second-container">
       <div class="card-login">
         <div class="header">
-          <div class="logo" tag="router-link" :to="{ path: '/' }">
+          <div class="logo">
+            <router-link to="/">
             <img
               src="../assets/Logo.svg"
               alt="Lightweight UI components for Vue.js based on Bulma"
             />
+          </router-link>
           </div>
         </div>
         <form action="login-form">
@@ -17,12 +19,19 @@
               label="Informe seu e-mail para continuar"
               label-position="left"
             >
-              <b-input type="email" maxlength="30"></b-input>
+              <b-input type="email" maxlength="30" v-model="user.email" placeholder="123@123.com"></b-input>
             </b-field>
           </div>
+          <b-field
+              label="Password"
+            >
+              <b-input type="password" maxlength="30" v-model="user.password" password-reveal></b-input>
+            </b-field>
           <div class="buttons-row">
-            <b-button class="create-btn">Criar Conta</b-button>
-            <b-button class="continue-btn">Continuar</b-button>
+            <router-link to="/register">
+              <b-button class="create-btn">Criar Conta</b-button>
+            </router-link>
+            <b-button class="continue-btn" @click="logar()">Continuar</b-button>
           </div>
         </form>
       </div>
@@ -33,17 +42,32 @@
   </div>
 </template>
 <script>
-import CopyrightsAll from "@/components/CopyrightsAll.vue"
+import CopyrightsAll from "@/components/CopyrightsAll.vue";
 export default {
   name: "LoginView",
   components: {
     CopyrightsAll
+  },
+  data () {
+    return {
+      user: {
+        email: "",
+        password: ""
+      }
+    }
+  },
+  methods: {
+    async logar () {
+      await this.$store.dispatch("loginUser", this.user);
+      // this.$store.dispatch("getUser", this.user);
+      this.$router.push({ name: "user" })
+    }
   }
-}
+};
 </script>
 <style scoped>
 .about {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
 }
 .first-container {
   height: 35vh;
