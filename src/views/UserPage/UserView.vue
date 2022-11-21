@@ -3,6 +3,9 @@
     <nav class="sidenav">
       <ul>
         <li>
+          <router-link :to="{name: 'user'}">Products</router-link>
+        </li>
+        <li>
           <router-link :to="{ name: 'user-edit' }">Editar Usuário</router-link>
         </li>
         <li>
@@ -37,6 +40,7 @@ export default {
   max-width: 900px;
   grid-gap: 30px;
   padding: 20px;
+  width: 100%;
 }
 @media screen and (max-width: 500px) {
   .user-container {
@@ -63,6 +67,14 @@ export default {
   color:  #fff;
 }
 .unlog-btn {
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  text-align: left;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  cursor: pointer;
+}
+.sidenav button {
   border: none;
   width: 100%;
   font-size: 1rem;
