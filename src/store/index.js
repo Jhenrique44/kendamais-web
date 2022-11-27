@@ -1,5 +1,6 @@
 import auth from "@/consumers/auth"
-import userApi from "@/consumers/userApi"
+import userConsumer from "@/consumers/userConsumer"
+import productsConsumer from "@/consumers/productsConsumer"
 import Vue from "vue"
 import Vuex from "vuex"
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
       password: "",
       cpf: "",
       cellphone: ""
-    }
+    },
+    products_user: null
   },
   getters: {},
   mutations: {
@@ -25,18 +27,32 @@ export default new Vuex.Store({
     },
     UPDATE_USER (state, payload) {
       state.user = Object.assign(state.user, payload)
+    },
+    UPDATE_USER_PRODUCTS (state, payload) {
+      state.products_user = payload;
+    },
+    ADD_USER_PRODUCTS (state, payload) {
+      state.products_user.unshit(payload);
     }
   },
   actions: {
+    getUserProducts (context) {
+      console.log("getUserProduct", context);
+      return productsConsumer.getAllBiddings(context).then(response => {
+        console.log(response)
+        context.commit("UPDATE_USER_PRODUCTS", response.data);
+      })
+    },
     getUser (context) {
       console.log(context)
-      return userApi.getUser(context).then(res => {
+      return userConsumer.getUser(context).then(res => {
         context.commit("UPDATE_USER", res.data);
         context.commit("UPDATE_LOGIN", true);
       })
     },
     createUser (context, payload) {
       console.log(payload, context);
+      context.commit("UPDATE_USER", { id: payload.email });
       return auth.signup(payload)
     },
     loginUser (context, payload) {

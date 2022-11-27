@@ -1,7 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import ProductView from "../views/ProductView.vue"
+
 Vue.use(VueRouter);
+
 const routes = [
   {
     path: "/",
@@ -20,15 +23,25 @@ const routes = [
   },
   {
     path: "/user",
-    name: "user",
     component: () => import("../views//UserPage/UserView.vue"),
     children: [
       {
         path: "edit",
         name: "user-edit",
         component: () => import("../views/UserPage/UserEdit")
+      },
+      {
+        path: "",
+        name: "user",
+        component: () => import("../views/UserPage/UserProducts.vue")
       }
     ]
+  },
+  {
+    path: "/produto/:id",
+    name: "product",
+    component: ProductView,
+    props: true
   }
 ];
 const router = new VueRouter({
