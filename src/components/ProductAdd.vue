@@ -1,9 +1,11 @@
 <template>
-  <form class="adicionar-product">
-    <label for="name">Nome</label>
-    <input id="name" name="name" type="text" v-model="product.name">
-    <label for="price">Preço (R$)</label>
-    <input id="price" name="price" type="number" v-model="product.price">
+  <form class="add-product">
+    <label for="title">Name</label>
+    <input id="title" name="title" type="text" v-model="product.title">
+    <label for="price">Valor Minimo (R$)</label>
+    <input id="price" name="price" type="number" v-model="product.minimumValue">
+    <label for="price">Valor Lance (R$)</label>
+    <input id="price" name="price" type="number" v-model="product.bidValue">
     <!-- <label for="fotos">Fotos</label>
     <input id="fotos" name="fotos" type="file" ref="fotos"> -->
     <label for="price">Descrição</label>
@@ -13,33 +15,39 @@
 </template>
 
 <script>
+import productsConsumer from "@/consumers/productsConsumer";
+
 export default {
   name: "ProductAdd",
   data () {
     return {
       product: {
-        name: "",
-        price: "",
-        description: ""
+        title: "",
+        description: "",
+        minimumValue: "",
+        bidValue: "",
+        createdBy: "",
+        dueDate: (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDay())
       }
     }
   },
   methods: {
     formatarProduto () {
-      this.product.user_id = this.$store.state.user.id;
+      this.product.createdBy = this.$store.state.user.id;
     },
     adicionarProduto () {
+      console.log(this.product)
       this.formatarProduto();
-      // api.post("/product", this.product).then(() => {
-      //   this.$store.dispatch("getUserProducts");
-      // });
+      productsConsumer.createBidding(this.product).then(() => {
+        this.$store.dispatch("getUserProducts");
+      });
     }
   }
 }
 </script>
 
 <style scoped>
-.adicionar-product {
+.add-product {
   display: grid;
   grid-template-columns: 100px 1fr;
   align-items: center;

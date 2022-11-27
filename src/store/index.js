@@ -18,13 +18,7 @@ export default new Vuex.Store({
       cpf: "",
       cellphone: ""
     },
-    products_user: [
-      {
-        name: "Notebook",
-        price: "1200",
-        description: "suidhfuaidhsf"
-      }
-    ]
+    products_user: null
   },
   getters: {},
   mutations: {
@@ -43,7 +37,9 @@ export default new Vuex.Store({
   },
   actions: {
     getUserProducts (context) {
-      productsConsumer.getProducts(`/product?user_id=${context.state.user.id}`).then(response => {
+      console.log("getUserProduct", context);
+      return productsConsumer.getAllBiddings(context).then(response => {
+        console.log(response)
         context.commit("UPDATE_USER_PRODUCTS", response.data);
       })
     },
@@ -56,6 +52,7 @@ export default new Vuex.Store({
     },
     createUser (context, payload) {
       console.log(payload, context);
+      context.commit("UPDATE_USER", { id: payload.email });
       return auth.signup(payload)
     },
     loginUser (context, payload) {

@@ -74,7 +74,7 @@ async function getBidding (biddingId) {
 
 async function getAllBiddings () {
   try {
-    const response = await api.get("/bidding");
+    const response = await api.get("/bidding/");
 
     return response.data
   } catch (error) {

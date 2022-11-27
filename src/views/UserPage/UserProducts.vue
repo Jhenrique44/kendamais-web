@@ -17,8 +17,8 @@
 <script>
 import ProductAdd from "@/components/ProductAdd.vue";
 import ProductItem from "@/components/ProductItem.vue";
-import { api } from "@/apis/api"
 import { mapState, mapActions } from "vuex";
+import productsConsumer from "@/consumers/productsConsumer";
 
 export default {
   name: "UserProducts",
@@ -34,7 +34,7 @@ export default {
     deleteProduct (id) {
       const confirm = window.confirm("Deseja remover esse anuncio?");
       if (confirm) {
-        api.delete(`/produto/${id}`).then(() => {
+        productsConsumer.deleteBidding(`/produto/${id}`).then(() => {
           this.getUserProducts();
         }).catch(error => {
           console.log(error)
@@ -58,6 +58,8 @@ export default {
 <style scoped>
 h2 {
   margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
 }
 .list-enter,
 .list-leave-to {

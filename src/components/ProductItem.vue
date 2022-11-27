@@ -5,8 +5,9 @@
       <p>Ver Produto</p>
     </router-link>
     <div class="info">
-      <p class="price">{{product.price | priceNumber}}</p>
-      <h2 class="titulo">{{product.nome}}</h2>
+      <h2 class="titulo">{{product.title}}</h2>
+      <p class="price">Lance: {{product.bidValue | priceNumber}}</p>
+      <p class="price">Valor Minimo: {{product.minimumValue | priceNumber}}</p>
       <slot></slot>
     </div>
   </div>

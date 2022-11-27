@@ -7,7 +7,7 @@
         </li>
       </ul> -->
       <div class="info">
-        <h1>{{product.name}}</h1>
+        <h1>{{product.title}}</h1>
         <p class="preco">{{product.price | numberPrice}}</p>
         <p class="descricao">{{product.desc}}</p>
         <button class="btn" v-if="product.sold === 'false'">Dar Lance</button>
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-// import { api } from "@/services.js";
 import LoadingPage from "@/components/LoadingPage.vue";
+import productsConsumer from "@/consumers/productsConsumer";
 
 export default {
   components: { LoadingPage },
@@ -32,11 +32,11 @@ export default {
     };
   },
   methods: {
-    // getProduct() {
-    //   api.get(`/product/${this.id}`).then(response => {
-    //     this.product = response.data;
-    //   });
-    // }
+    getProduct () {
+      productsConsumer.getBidding(`${this.id}`).then(response => {
+        this.product = response.data;
+      });
+    }
   },
   created () {
     this.getProduto()

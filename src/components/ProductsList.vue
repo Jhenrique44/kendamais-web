@@ -9,8 +9,9 @@
               :src="product.fotos[0].src"
               :alt="product.fotos[0].titulo"
             />
-            <p class="price">{{ product.price | numberPrice }}</p>
-            <h2 class="title">{{ product.name }}</h2>
+            <p class="price">{{ product.minimumValue | numberPrice }}</p>
+            <p class="price">{{ product.bidValue | numberPrice }}</p>
+            <h2 class="title">{{ product.title }}</h2>
             <p>{{ product.description }}</p>
           </router-link>
         </div>
@@ -26,53 +27,53 @@
     </transition>
   </section>
 </template>
-
 <script>
-// import { getProducts } from "@/consumers/productsConsumer";
 import { serialize } from "@/helpers";
+import productsConsumer from "@/consumers/productsConsumer";
 export default {
   name: "ProductsList",
   data () {
     return {
       productsPerPage: 9,
-      products: [
-        {
-          id: 1,
-          name: "Notebook",
-          price: "2000",
-          description: "laptop for outside users"
-        },
-        {
-          id: 2,
-          name: "Smartphone",
-          price: "1900",
-          description: "Esse é um novo smartphone"
-        },
-        {
-          id: 3,
-          name: "Tablet",
-          price: "1400",
-          description: "Esse é um novo tablet"
-        }
-      ]
+      products: null
+      // products: [
+      //   {
+      //     id: 1,
+      //     name: "Notebook",
+      //     price: "2000",
+      //     description: "laptop for outside users"
+      //   },
+      //   {
+      //     id: 2,
+      //     name: "Smartphone",
+      //     price: "1900",
+      //     description: "Esse é um novo smartphone"
+      //   },
+      //   {
+      //     id: 3,
+      //     name: "Tablet",
+      //     price: "1400",
+      //     description: "Esse é um novo tablet"
+      //   }
+      // ]
     }
   },
   computed: {
     url () {
       const query = serialize(this.$route.query);
-      return `/product?_limit=${this.productsPerPage}${query}`
+      return `/bidding?_limit=${this.productsPerPage}${query}`
     }
   },
   created () {
     this.getProducts();
   },
   methods: {
-    // getProducts() {
-    //   this.products = null;
-    //   apiProducts.getProducts(this.url).then(res => {
-    //     this.products = res.data;
-    //   });
-    // }
+    getProducts () {
+      this.products = null;
+      productsConsumer.getAllBiddings().then(res => {
+        this.products = res.data;
+      });
+    }
   },
   watch: {
     url () {
