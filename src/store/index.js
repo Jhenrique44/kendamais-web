@@ -1,6 +1,6 @@
 import auth from "@/consumers/auth"
-import userApi from "@/consumers/userApi"
-import productsApi from "@/consumers/productsApi"
+import userConsumer from "@/consumers/userConsumer"
+import productsConsumer from "@/consumers/productsConsumer"
 import Vue from "vue"
 import Vuex from "vuex"
 
@@ -43,13 +43,13 @@ export default new Vuex.Store({
   },
   actions: {
     getUserProducts (context) {
-      productsApi.getProducts(`/product?user_id=${context.state.user.id}`).then(response => {
+      productsConsumer.getProducts(`/product?user_id=${context.state.user.id}`).then(response => {
         context.commit("UPDATE_USER_PRODUCTS", response.data);
       })
     },
     getUser (context) {
       console.log(context)
-      return userApi.getUser(context).then(res => {
+      return userConsumer.getUser(context).then(res => {
         context.commit("UPDATE_USER", res.data);
         context.commit("UPDATE_LOGIN", true);
       })

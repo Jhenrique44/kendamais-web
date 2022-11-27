@@ -28,7 +28,7 @@
 </template>
 
 <script>
-// import { getProducts } from "@/consumers/productsApi";
+// import { getProducts } from "@/consumers/productsConsumer";
 import { serialize } from "@/helpers";
 export default {
   name: "ProductsList",
