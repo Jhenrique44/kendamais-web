@@ -9,7 +9,7 @@ async function createBidding ({
   dueDate
 }) {
   try {
-    const response = await api.post("/bidding",
+    const response = await api.post("/bidding/",
       title,
       description,
       minimumValue,
