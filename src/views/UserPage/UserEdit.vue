@@ -53,7 +53,7 @@
 </template>
 <script>
 import { mapFields } from "../../helpers";
-import userApi from "@/consumers/userApi";
+import userConsumer from "@/consumers/userConsumer";
 export default {
   name: "UserEdit",
   data () {
@@ -80,7 +80,7 @@ export default {
   methods: {
     updateUserLogged () {
       console.log({ a: this.$store.state.user })
-      userApi
+      userConsumer
         .updateUser(this.$store.state.user)
         .then(() => {
           // this.$store.dispatch("getUser");
