@@ -18,13 +18,7 @@ export default new Vuex.Store({
       cpf: "",
       cellphone: ""
     },
-    products_user: [
-      {
-        name: "Notebook",
-        price: "1200",
-        description: "suidhfuaidhsf"
-      }
-    ]
+    products_user: null
   },
   getters: {},
   mutations: {
@@ -42,9 +36,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getUserProducts (context) {
-      productsConsumer.getProducts(`/product?user_id=${context.state.user.id}`).then(response => {
-        context.commit("UPDATE_USER_PRODUCTS", response.data);
+    async getUserProducts (context) {
+      console.log("getUserProduct", context);
+      return productsConsumer.getAllBiddings().then(response => {
+        console.log("Response List", response)
+        context.commit("UPDATE_USER_PRODUCTS", response);
       })
     },
     getUser (context) {
@@ -56,6 +52,7 @@ export default new Vuex.Store({
     },
     createUser (context, payload) {
       console.log(payload, context);
+      context.commit("UPDATE_USER", { id: payload.email });
       return auth.signup(payload)
     },
     loginUser (context, payload) {
@@ -65,6 +62,7 @@ export default new Vuex.Store({
         password: payload.password
       }).then(res => {
         context.commit("UPDATE_USER", res);
+        context.commit("UPDATE_LOGIN", true);
         // window.localStorage.token = `Bearer ${res.data.token}`
         console.log({ res })
       })

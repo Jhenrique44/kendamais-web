@@ -42,6 +42,12 @@ const routes = [
     name: "product",
     component: ProductView,
     props: true
+  },
+  {
+    path: "/produto/:id",
+    name: "product-edit",
+    component: () => import("../views/ProductEditView.vue"),
+    props: true
   }
 ];
 const router = new VueRouter({

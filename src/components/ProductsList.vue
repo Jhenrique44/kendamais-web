@@ -4,14 +4,15 @@
       <div class="products" v-if="products && products.length" key="products">
         <div class="product" v-for="(product, index) in products" :key="index">
           <router-link :to="{ name: 'product', params: { id: product.id } }">
-            <img
+            <!-- <img
               v-if="product.fotos"
               :src="product.fotos[0].src"
               :alt="product.fotos[0].titulo"
-            />
-            <p class="price">{{ product.price | numberPrice }}</p>
-            <h2 class="title">{{ product.name }}</h2>
-            <p>{{ product.description }}</p>
+            /> -->
+            <p class="price">Valor Minimo: {{ product.minimumValue | numberPrice }}</p>
+            <p class="price">Lance: {{ product.bidValue | numberPrice }}</p>
+            <h2 class="title">{{ product.title }}</h2>
+            <p class="descprition">{{ product.description }}</p>
           </router-link>
         </div>
       </div>
@@ -26,53 +27,34 @@
     </transition>
   </section>
 </template>
-
 <script>
-// import { getProducts } from "@/consumers/productsConsumer";
 import { serialize } from "@/helpers";
+import productsConsumer from "@/consumers/productsConsumer";
 export default {
   name: "ProductsList",
   data () {
     return {
       productsPerPage: 9,
-      products: [
-        {
-          id: 1,
-          name: "Notebook",
-          price: "2000",
-          description: "laptop for outside users"
-        },
-        {
-          id: 2,
-          name: "Smartphone",
-          price: "1900",
-          description: "Esse é um novo smartphone"
-        },
-        {
-          id: 3,
-          name: "Tablet",
-          price: "1400",
-          description: "Esse é um novo tablet"
-        }
-      ]
+      products: null
     }
   },
   computed: {
     url () {
       const query = serialize(this.$route.query);
-      return `/product?_limit=${this.productsPerPage}${query}`
+      return `/bidding?_limit=${this.productsPerPage}${query}`
     }
   },
   created () {
     this.getProducts();
   },
   methods: {
-    // getProducts() {
-    //   this.products = null;
-    //   apiProducts.getProducts(this.url).then(res => {
-    //     this.products = res.data;
-    //   });
-    // }
+    getProducts () {
+      this.products = null;
+      productsConsumer.getAllBiddings().then(res => {
+        console.log("response get all", res);
+        this.products = res;
+      });
+    }
   },
   watch: {
     url () {
@@ -112,6 +94,13 @@ export default {
 .price {
   color: #ffb449;
   font-weight: bold;
+}
+.title{
+  font-weight: bold;
+}
+.descprition{
+  font-style: none;
+  color: black;
 }
 .without-result {
   text-align: center;

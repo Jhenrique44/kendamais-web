@@ -9,14 +9,14 @@ async function createBidding ({
   dueDate
 }) {
   try {
-    const response = await api.post("/bidding",
+    const response = await api.post("/bidding/", {
       title,
       description,
       minimumValue,
       bidValue,
       createdBy,
       dueDate
-    );
+    });
 
     return response.data
   } catch (error) {
@@ -29,15 +29,15 @@ async function updateBidding ({
   description,
   minimumValue,
   dueDate,
-  biddingId
+  id
 }) {
   try {
-    const response = await api.patch(`/bidding/${biddingId}`,
+    const response = await api.patch(`/bidding/${id}`, {
       title,
       description,
       minimumValue,
       dueDate
-    );
+    });
 
     return response.data
   } catch (error) {
@@ -74,7 +74,7 @@ async function getBidding (biddingId) {
 
 async function getAllBiddings () {
   try {
-    const response = await api.get("/bidding");
+    const response = await api.get("/bidding/");
 
     return response.data
   } catch (error) {

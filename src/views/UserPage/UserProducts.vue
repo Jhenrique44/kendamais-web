@@ -7,7 +7,7 @@
       <li v-for="(product, index) in products_user" :key="index">
         <ProductItem :product="product">
           <p>{{product.description}}</p>
-          <button class="deletar" @click="deleteProduct(product.id)">Delete</button>
+          <button class="deletar" @click="deleteProduct(product.id)">Deletar</button>
         </ProductItem>
       </li>
     </transition-group>
@@ -17,8 +17,8 @@
 <script>
 import ProductAdd from "@/components/ProductAdd.vue";
 import ProductItem from "@/components/ProductItem.vue";
-import { api } from "@/apis/api"
 import { mapState, mapActions } from "vuex";
+import productsConsumer from "@/consumers/productsConsumer";
 
 export default {
   name: "UserProducts",
@@ -34,7 +34,7 @@ export default {
     deleteProduct (id) {
       const confirm = window.confirm("Deseja remover esse anuncio?");
       if (confirm) {
-        api.delete(`/produto/${id}`).then(() => {
+        productsConsumer.deleteBidding(`${id}`).then(() => {
           this.getUserProducts();
         }).catch(error => {
           console.log(error)
@@ -48,6 +48,7 @@ export default {
     }
   },
   created () {
+    console.log(this.login);
     if (this.login) {
       this.getUserProducts();
     }
@@ -58,6 +59,8 @@ export default {
 <style scoped>
 h2 {
   margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
 }
 .list-enter,
 .list-leave-to {

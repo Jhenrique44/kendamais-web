@@ -82,7 +82,8 @@ export default {
       console.log({ a: this.$store.state.user })
       userConsumer
         .updateUser(this.$store.state.user)
-        .then(() => {
+        .then(response => {
+          console.log(response);
           // this.$store.dispatch("getUser");
           this.$router.push({ name: "user" });
         })
