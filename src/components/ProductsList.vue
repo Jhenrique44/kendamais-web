@@ -4,15 +4,15 @@
       <div class="products" v-if="products && products.length" key="products">
         <div class="product" v-for="(product, index) in products" :key="index">
           <router-link :to="{ name: 'product', params: { id: product.id } }">
-            <img
+            <!-- <img
               v-if="product.fotos"
               :src="product.fotos[0].src"
               :alt="product.fotos[0].titulo"
-            />
-            <p class="price">{{ product.minimumValue | numberPrice }}</p>
-            <p class="price">{{ product.bidValue | numberPrice }}</p>
+            /> -->
+            <p class="price">Valor Minimo: {{ product.minimumValue | numberPrice }}</p>
+            <p class="price">Lance: {{ product.bidValue | numberPrice }}</p>
             <h2 class="title">{{ product.title }}</h2>
-            <p>{{ product.description }}</p>
+            <p class="descprition">{{ product.description }}</p>
           </router-link>
         </div>
       </div>
@@ -36,26 +36,6 @@ export default {
     return {
       productsPerPage: 9,
       products: null
-      // products: [
-      //   {
-      //     id: 1,
-      //     name: "Notebook",
-      //     price: "2000",
-      //     description: "laptop for outside users"
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "Smartphone",
-      //     price: "1900",
-      //     description: "Esse é um novo smartphone"
-      //   },
-      //   {
-      //     id: 3,
-      //     name: "Tablet",
-      //     price: "1400",
-      //     description: "Esse é um novo tablet"
-      //   }
-      // ]
     }
   },
   computed: {
@@ -71,7 +51,8 @@ export default {
     getProducts () {
       this.products = null;
       productsConsumer.getAllBiddings().then(res => {
-        this.products = res.data;
+        console.log("response get all", res);
+        this.products = res;
       });
     }
   },
@@ -113,6 +94,13 @@ export default {
 .price {
   color: #ffb449;
   font-weight: bold;
+}
+.title{
+  font-weight: bold;
+}
+.descprition{
+  font-style: none;
+  color: black;
 }
 .without-result {
   text-align: center;

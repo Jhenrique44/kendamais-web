@@ -36,11 +36,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getUserProducts (context) {
+    async getUserProducts (context) {
       console.log("getUserProduct", context);
-      return productsConsumer.getAllBiddings(context).then(response => {
-        console.log(response)
-        context.commit("UPDATE_USER_PRODUCTS", response.data);
+      return productsConsumer.getAllBiddings().then(response => {
+        console.log("Response List", response)
+        context.commit("UPDATE_USER_PRODUCTS", response);
       })
     },
     getUser (context) {
@@ -62,6 +62,7 @@ export default new Vuex.Store({
         password: payload.password
       }).then(res => {
         context.commit("UPDATE_USER", res);
+        context.commit("UPDATE_LOGIN", true);
         // window.localStorage.token = `Bearer ${res.data.token}`
         console.log({ res })
       })

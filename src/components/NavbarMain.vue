@@ -26,9 +26,11 @@
 
       <template v-if="userLogged == false" #end>
         <b-navbar-item tag="div">
-          <router-link v-if="$store.state.login" to="/user">
-            {{ name }}
+          <div v-if="$store.state.login">
+            <router-link  to="/user">
+             <a>Bem vindo {{ name }}</a>
           </router-link>
+          </div>
           <div v-else class="buttons">
             <router-link to="/register">
               <a class="button"> Criar Conta </a>
@@ -47,8 +49,7 @@
 export default {
   name: "NavbarMain",
   computed: {
-    nome () {
-      console.log(this.$store.state.user.name);
+    name () {
       return this.$store.state.user.name.replace(/ .*/, "")
     }
   },
@@ -95,5 +96,9 @@ export default {
 <style scoped>
 .buttons {
   border: none;
+}
+a {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
