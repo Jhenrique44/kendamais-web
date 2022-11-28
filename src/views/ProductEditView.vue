@@ -1,18 +1,16 @@
 <template>
   <section>
     <div v-if="product" class="product">
-      <!-- <ul class="fotos" v-if="produto.fotos">
-        <li v-for="(foto, index) in produto.fotos" :key="index">
-          <img :src="foto.src" :alt="foto.titulo">
-        </li>
-      </ul> -->
       <div class="info">
-        <h1>{{product.title}}</h1>
-        <p class="preco">{{product.bidValue | numberPrice}}</p>
-        <p class="preco">{{product.minimumValue | numberPrice}}</p>
-        <p class="descricao">{{product.description}}</p>
-        <button class="btn" v-if="product.sold === 'false'">Dar Lance</button>
-        <button v-else class="btn" :disabled="true">Produto Arrematado</button>
+        <label for="title">Name</label>
+      <input id="title" name="title" type="text" v-model="product.title">
+      <label for="price">Valor Minimo (R$)</label>
+      <input id="price" name="price" type="number" v-model="product.minimumValue">
+      <label for="price">Valor Lance (R$)</label>
+      <input id="price" name="price" type="number" v-model="product.bidValue">
+      <label for="price">Descrição</label>
+      <textarea id="price" name="price" v-model="product.description"></textarea>
+        <button type="button" class="btn" @click.prevent="updateProduct()">Editar Anuncio</button>
       </div>
     </div>
     <loading-page v-else/>
@@ -33,14 +31,22 @@ export default {
     };
   },
   methods: {
-    getProduct () {
+    async getProduct () {
       productsConsumer.getBidding(`${this.id}`).then(response => {
         this.product = response;
       });
+    },
+    updateProduct () {
+      this.product.id = this.id;
+      this.product.dueDate = (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate());
+      console.log("Product Update", this.product);
+      productsConsumer.updateBidding(this.product).then(response => {
+        console.log("update response", response);
+      })
     }
   },
-  created () {
-    this.getProduct()
+  async created () {
+    await this.getProduct()
   }
 }
 </script>
@@ -69,7 +75,16 @@ h1 {
 .fotos {
   grid-row: 1 / 3;
 }
+.add-product {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  margin-bottom: 60px;
+}
 
+.btn {
+  grid-column: 2;
+}
 .info {
   position: sticky;
   top: 20px;

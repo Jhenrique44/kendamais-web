@@ -7,7 +7,7 @@
       <li v-for="(product, index) in products_user" :key="index">
         <ProductItem :product="product">
           <p>{{product.description}}</p>
-          <button class="deletar" @click="deleteProduct(product.id)">Delete</button>
+          <button class="deletar" @click="deleteProduct(product.id)">Deletar</button>
         </ProductItem>
       </li>
     </transition-group>
@@ -34,7 +34,7 @@ export default {
     deleteProduct (id) {
       const confirm = window.confirm("Deseja remover esse anuncio?");
       if (confirm) {
-        productsConsumer.deleteBidding(`/produto/${id}`).then(() => {
+        productsConsumer.deleteBidding(`${id}`).then(() => {
           this.getUserProducts();
         }).catch(error => {
           console.log(error)
@@ -48,6 +48,7 @@ export default {
     }
   },
   created () {
+    console.log(this.login);
     if (this.login) {
       this.getUserProducts();
     }

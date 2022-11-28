@@ -24,21 +24,24 @@ export default {
       product: {
         title: "",
         description: "",
-        minimumValue: "",
-        bidValue: "",
+        minimumValue: 0,
+        bidValue: 0,
         createdBy: "",
-        dueDate: (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDay())
+        dueDate: ""
       }
     }
   },
   methods: {
-    formatarProduto () {
+    async formatarProduto () {
       this.product.createdBy = this.$store.state.user.id;
+      this.product.dueDate = (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate());
+      this.product.bidValue = parseFloat(this.product.bidValue);
+      this.product.minimumValue = parseFloat(this.product.minimumValue);
     },
-    adicionarProduto () {
-      console.log(this.product)
-      this.formatarProduto();
-      productsConsumer.createBidding(this.product).then(() => {
+    async adicionarProduto () {
+      await this.formatarProduto();
+      console.log("Product", this.product)
+      await productsConsumer.createBidding(this.product).then(() => {
         this.$store.dispatch("getUserProducts");
       });
     }
