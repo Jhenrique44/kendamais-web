@@ -36,13 +36,14 @@ export default {
         this.product = response;
       });
     },
-    updateProduct () {
+    async updateProduct () {
       this.product.id = this.id;
       this.product.dueDate = (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate());
       console.log("Product Update", this.product);
-      productsConsumer.updateBidding(this.product).then(response => {
+      await productsConsumer.updateBidding(this.product).then(response => {
         console.log("update response", response);
       })
+      this.$router.push({ name: "user" })
     }
   },
   async created () {
