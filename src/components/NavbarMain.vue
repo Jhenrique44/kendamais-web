@@ -24,7 +24,7 @@
         </b-navbar-dropdown> -->
       </template>
 
-      <template v-if="userLogged == false" #end>
+      <template #end>
         <b-navbar-item tag="div">
           <div v-if="$store.state.login">
             <router-link  to="/user">
@@ -51,11 +51,6 @@ export default {
   computed: {
     name () {
       return this.$store.state.user.name.replace(/ .*/, "")
-    }
-  },
-  data () {
-    return {
-      userLogged: false
     }
   }
 };
