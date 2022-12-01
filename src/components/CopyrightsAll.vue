@@ -15,7 +15,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .copyrights {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;

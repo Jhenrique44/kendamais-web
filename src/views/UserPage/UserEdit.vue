@@ -1,55 +1,58 @@
 <template>
-  <section class="user-container">
-    <form action="login-form">
-      <div class="input-row">
-        <b-field>
-          <b-input
-            v-model="name"
-            placeholder="Nome"
-            type="text"
-            maxlength="30"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            v-model="email"
-            placeholder="E-mail"
-            type="email"
-            maxlength="30"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            v-model="cpf"
-            placeholder="CPF ou CNPJ"
-            type="cpf"
-            maxlength="30"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            v-model="cellphone"
-            placeholder="Telefone"
-            type="phone"
-            maxlength="30"
-          ></b-input>
-        </b-field>
-        <b-field>
-          <b-input
-            v-model="password"
-            placeholder="Senha"
-            type="password"
-            password-reveal
-          ></b-input>
-        </b-field>
-      </div>
-      <div class="buttons-row">
-        <b-button class="continue-btn" @click.prevent="updateUserLogged()"
-          >Atualizar</b-button
-        >
-      </div>
-    </form>
-  </section>
+  <div class="">
+    <h1>Editar Cadastro</h1>
+    <section class="user-container">
+      <form action="login-form">
+        <div class="input-row">
+          <b-field>
+            <b-input
+              v-model="name"
+              placeholder="Nome"
+              type="text"
+              maxlength="30"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              v-model="email"
+              placeholder="E-mail"
+              type="email"
+              maxlength="30"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              v-model="cpf"
+              placeholder="CPF ou CNPJ"
+              type="cpf"
+              maxlength="30"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              v-model="cellphone"
+              placeholder="Telefone"
+              type="phone"
+              maxlength="30"
+            ></b-input>
+          </b-field>
+          <b-field>
+            <b-input
+              v-model="password"
+              placeholder="Senha"
+              type="password"
+              password-reveal
+            ></b-input>
+          </b-field>
+        </div>
+        <div class="buttons-row">
+          <b-button class="continue-btn" @click.prevent="updateUserLogged()"
+            >Atualizar</b-button
+          >
+        </div>
+      </form>
+    </section>
+  </div>
 </template>
 <script>
 import { mapFields } from "../../helpers";
@@ -74,22 +77,22 @@ export default {
       mutation: "UPDATE_USER"
     }),
     showDataLogin () {
-      return !this.$store.state.login || !this.$route.name === "user-edit"
+      return !this.$store.state.login || !this.$route.name === "user-edit";
     }
   },
   methods: {
     updateUserLogged () {
-      console.log({ a: this.$store.state.user })
+      console.log({ a: this.$store.state.user });
       userConsumer
         .updateUser(this.$store.state.user)
-        .then(response => {
+        .then((response) => {
           console.log(response);
           // this.$store.dispatch("getUser");
           this.$router.push({ name: "user" });
         })
         .catch((error) => {
-          console.log(error.response);
-        });
+          console.log(error.response)
+        })
     }
   }
 };
@@ -134,6 +137,11 @@ form {
 }
 .create-btn:hover {
   text-decoration: underline;
+}
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
 }
 .continue-btn {
   display: flex;

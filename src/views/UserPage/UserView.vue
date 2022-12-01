@@ -3,7 +3,7 @@
     <nav class="sidenav">
       <ul>
         <li>
-          <router-link :to="{name: 'user'}">Products</router-link>
+          <router-link :to="{name: 'user'}">Produtos</router-link>
         </li>
         <li>
           <router-link :to="{ name: 'user-edit' }">Editar Usuário</router-link>
@@ -48,6 +48,10 @@ export default {
     margin: 0 auto;
   }
 }
+li:active, li:focus{
+  background: #ffb449;
+  color: #fff;
+}
 .sidenav a,
 .unlog-btn
  {
@@ -62,6 +66,8 @@ export default {
 }
 .sidenc a.router-link-exact-active,
 .sidenav a:hover,
+.sidenav a:active,
+.sidenav a:focus,
 .unlog-btn:hover{
   background: #ffb449;
   color:  #fff;
