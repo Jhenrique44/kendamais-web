@@ -24,7 +24,7 @@
         </b-navbar-dropdown> -->
       </template>
 
-      <template v-if="userLogged == true" #end>
+      <template v-if="userLogged == false" #end>
         <b-navbar-item tag="div">
           <div v-if="$store.state.login">
             <router-link  to="/user">
