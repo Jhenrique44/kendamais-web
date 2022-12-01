@@ -8,13 +8,13 @@
       </template>
       <template #start>
         <!-- <b-navbar-item> -->
-        <b-input
+        <!-- <b-input
           class="search-input"
           expanded
           placeholder="Search..."
           icon="search"
           icon-clickable
-        ></b-input>
+        ></b-input> -->
         <!-- </b-navbar-item> -->
         <!-- <b-navbar-item href="#"> Home </b-navbar-item>
         <b-navbar-item href="#"> Documentation</b-navbar-item>
@@ -24,7 +24,7 @@
         </b-navbar-dropdown> -->
       </template>
 
-      <template v-if="userLogged == false" #end>
+      <template v-if="userLogged == true" #end>
         <b-navbar-item tag="div">
           <div v-if="$store.state.login">
             <router-link  to="/user">
@@ -96,9 +96,10 @@ export default {
 <style scoped>
 .buttons {
   border: none;
+  gap: 2rem;
 }
 a {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 }
 </style>
