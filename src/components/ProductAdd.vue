@@ -34,7 +34,7 @@ export default {
   methods: {
     async formatarProduto () {
       this.product.createdBy = this.$store.state.user.id;
-      this.product.dueDate = (new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate());
+      this.product.dueDate = (this.product.dueDate = (new Date().toJSON().slice(0, 10)););
       this.product.bidValue = parseFloat(this.product.bidValue);
       this.product.minimumValue = parseFloat(this.product.minimumValue);
     },
